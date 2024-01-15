@@ -1,8 +1,11 @@
 <?php
 try {
-    require "user_side.php";
-    $id = $_SESSION['id'];
+    require "admin_side.php";
     if (isset($_POST['update'])) {
+        $id = $_POST['update'];
+    }
+    if (isset($_POST['updates'])) {
+        $id = $_POST['updates'];
         $name = $_POST['name'];
         $phoneNum = $_POST['phoneNum'];
         $email = $_POST['email'];
@@ -20,6 +23,7 @@ try {
             $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type' WHERE user_id = '$id'";
             $conn->exec($sql);
         }
+        header("location: admin_update_user.php");
     }
 } catch (PDOException $e) {
     echo $e->getMessage();
@@ -94,7 +98,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="row justify-content-center">
                         <div class=" col-auto">
-                            <button type="submit" class="btn btn-primary" name="update">Update</button>
+                            <button type="submit" class="btn btn-primary" name="updates" value="<?php echo $id?>">Update</button>
                         </div>
                     </div>
                 </form>

@@ -1,6 +1,6 @@
 <?php
 try {
-    require "conn_db.php";
+    require "admin_side.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST['password'] === $_POST['password2']) {
             $name = $_POST['name'];
@@ -19,10 +19,7 @@ try {
                 $user_id = $conn->lastInsertId();
                 $sql = "INSERT INTO registereduser VALUES ('', '$user_id', '$username', '$password', '$type', '$photo')";
                 $conn->exec($sql);
-                session_start();
-                $_SESSION['id'] = $user_id;
-                header("location: user_qrcode.php");
-                exit;
+                echo "<script>alert('Registration Successful!')</script>";
             }
         }
     }
@@ -37,17 +34,19 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <title>Sign Up</title>
+    <title>Create User</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+        <div class="container">
         <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
-                <div class="col m-5">
+                <div class="col-auto">
                     <div class="m-5">
-                        <h3>Fkom Food Kiosk System</h3>
+                        <h3>Register User</h3>
                     </div>
                     <div class="input-group m-5">
                         <span class="input-group-text"><label for="name">Name</label></span>
@@ -88,11 +87,10 @@ try {
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </div>
                 </div>
-                <div class="col">
-                    <img src="../image/system_logo.jpg" alt="System Logo" class="img-fluid" id="qrcode">
-                </div>
             </div>
         </form>
+    </div>
+        </div>
     </div>
 </body>
 

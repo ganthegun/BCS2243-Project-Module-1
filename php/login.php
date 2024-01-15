@@ -18,17 +18,17 @@ try {
                 if (($type == "student" || $type == "staff") && $_POST['type'] == $row['type']) {
                     unset($SESSION['validate_login']);
                     $_SESSION['id'] = $row['user_id'];
-                    header("location: user_index.php");
+                    header("location: ./user_dashboard.php");
                     exit();
                 } else if ($type == "foodVendor" && $row['approval'] == "approved") {
                     unset($SESSION['validate_login']);
                     $_SESSION['id'] = $row['id'];
-                    header("location: vendor_index.php");
+                    header("location: ./vendor_dashboard.php");
                     exit();
                 } else if ($type == "administrator") {
                     unset($SESSION['validate_login']);
                     $_SESSION['id'] = $row['id'];
-                    header("location: admin_index.php");
+                    header("location: admin_dashboard.php");
                     exit();
                 }
             }

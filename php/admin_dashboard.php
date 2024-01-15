@@ -1,9 +1,9 @@
 <?php
-    try {
-        require "admin_side.php";
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
+try {
+    require "admin_side.php";
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +15,9 @@
 </head>
 
 <body>
+    <div class="row">
+        
+    </div>
 </body>
 
 </html>

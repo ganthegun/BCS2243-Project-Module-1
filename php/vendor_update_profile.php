@@ -1,6 +1,6 @@
 <?php
 try {
-    require "user_side.php";
+    require "vendor_side.php";
     $id = $_SESSION['id'];
     if (isset($_POST['update'])) {
         $name = $_POST['name'];
@@ -8,16 +8,15 @@ try {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $type = $_POST['type'];
         $photo = basename($_FILES["photo"]["name"]);
         $targetPhotoPath = "../uploads/" . $photo;
         $photoType = pathinfo($targetPhotoPath, PATHINFO_EXTENSION);
         $allowTypes = array('jpg', 'png', 'jpeg');
         if (in_array($photoType, $allowTypes) && move_uploaded_file($_FILES["photo"]["tmp_name"], $targetPhotoPath)) {
-            $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type', photo = '$photo' WHERE user_id = '$id'";
+            $sql = "UPDATE foodvendor SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', photo = '$photo' WHERE id = '$id'";
             $conn->exec($sql);
         } else {
-            $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type' WHERE user_id = '$id'";
+            $sql = "UPDATE foodvendor SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password' WHERE id = '$id'";
             $conn->exec($sql);
         }
     }
@@ -37,7 +36,7 @@ try {
 </head>
 
 <?php
-$stmt = $conn->prepare("SELECT * FROM generaluser JOIN registereduser ON generaluser.id = registereduser.user_id WHERE user_id = '$id'");
+$stmt = $conn->prepare("SELECT * FROM foodvendor WHERE id = '$id'");
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -52,7 +51,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         <h3>User Profile</h3>
                     </div>
                 </div>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                     <div class="row justify-content-center">
                         <div class="col-lg-6 text-lg-center">
                             <div class="row-cols-auto my-5 border border-black">
@@ -83,12 +82,6 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             <div class="input-group my-5">
                                 <span class="input-group-text"><label for="password">Password</label></span>
                                 <input type="password" id="password" class="form-control" name="password" value="<?php echo $row['password'] ?>" required>
-                            </div>
-                            <div class="my-5">
-                                <select name="type" class="form-select" required>
-                                    <option <?php echo ($row['type'] == "student") ? "selected" : "" ?> value="student">Student</option>
-                                    <option <?php echo ($row['type'] == "student") ? "selected" : "" ?> value="staff">Staff</option>
-                                </select>
                             </div>
                         </div>
                     </div>

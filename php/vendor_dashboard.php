@@ -1,6 +1,6 @@
 <?php
     try {
-        require "side.php";
+        require "vendor_side.php";
     } catch (PDOException $e) {
         echo $e->getMessage();
     }

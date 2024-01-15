@@ -20,6 +20,10 @@ try {
                 $vendor_id = $conn->lastInsertId();
                 $sql = "INSERT INTO kiosk VALUES ('', '$vendor_id', '$kiosk_name', '$kiosk_description', NULL, NULL, NULL, NULL)";
                 $conn->exec($sql);
+                session_start();
+                $_SESSION['id'] = $vendor_id;
+                header("location: vendor_qrcode.php");
+                exit;
             }
         }
     }
@@ -98,11 +102,6 @@ try {
             </div>
         </form>
     </div>
-    <script>
-        if (<?php echo isset($vendor_id) ?> == "1") {
-            alert("Dear vendor, your registration form has been submitted and pending for admin's approval. Please be patient.");
-        }
-    </script>
 </body>
 
 </html>

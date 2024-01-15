@@ -19,15 +19,20 @@ if (!isset($_SESSION['id'])) {
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-auto m-5">
-                <h3>Scan QR code to view user profile</h3>
+                <h3>Scan QR code to view vendor profile</h3>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-auto border mb-5" id="qrcode"></div>
         </div>
         <div class="row justify-content-center">
+            <div class="col-auto m-5">
+                <h5>Dear vendor, your registration form has been submitted and pending for admin's approval. Please be patient.</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-auto">
-                <a href="user_dashboard.php" class="btn btn-primary">to main page</a>
+                <a href="logout.php" class="btn btn-primary">to main page</a>
             </div>
         </div>
     </div>
@@ -35,7 +40,7 @@ if (!isset($_SESSION['id'])) {
     <script>
         var id = <?php echo json_encode($_SESSION['id']); ?>;
         var qrcode = new QRCode("qrcode");
-        qrcode.makeCode("http://localhost/web_project/php/user_qrcode_content.php?id=" + id);
+        qrcode.makeCode("http://localhost/web_project/php/vendor_qrcode_content.php?id=" + id);
     </script>
 </body>
 

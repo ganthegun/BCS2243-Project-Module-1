@@ -1,6 +1,7 @@
 <?php
 try {
-    require "conn_db.php";
+    require "admin_side.php";
+    $admin_id = $_SESSION['id'];
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST['password'] === $_POST['password2']) {
             $name = $_POST['name'];
@@ -8,21 +9,19 @@ try {
             $email = $_POST['email'];
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $type = $_POST['type'];
+            $kiosk_name = $_POST['kiosk_name'];
+            $kiosk_description = $_POST['kiosk_description'];
             $photo = basename($_FILES["photo"]["name"]);
             $targetPhotoPath = "../uploads/" . $photo;
             $photoType = pathinfo($targetPhotoPath, PATHINFO_EXTENSION);
             $allowTypes = array('jpg', 'png', 'jpeg');
             if (in_array($photoType, $allowTypes) && move_uploaded_file($_FILES["photo"]["tmp_name"], $targetPhotoPath)) {
-                $sql = "INSERT INTO generaluser VALUES ('', '$name', '$phoneNum', '$email')";
+                $sql = "INSERT INTO foodvendor VALUES ('', '$admin_id', '$name', '$phoneNum', '$email', '$username', '$password', '$photo', 'approved')";
                 $conn->exec($sql);
-                $user_id = $conn->lastInsertId();
-                $sql = "INSERT INTO registereduser VALUES ('', '$user_id', '$username', '$password', '$type', '$photo')";
+                $vendor_id = $conn->lastInsertId();
+                $sql = "INSERT INTO kiosk VALUES ('', '$vendor_id', '$kiosk_name', '$kiosk_description', NULL, NULL, NULL, NULL)";
                 $conn->exec($sql);
-                session_start();
-                $_SESSION['id'] = $user_id;
-                header("location: user_qrcode.php");
-                exit;
+                echo "<script>alert('Registration Successful!')</script>";
             }
         }
     }
@@ -37,17 +36,22 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <title>Sign Up</title>
+    <title>Create User</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+        <div class="container">
         <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 <div class="col m-5">
                     <div class="m-5">
-                        <h3>Fkom Food Kiosk System</h3>
+                        <h3>Register Vendor</h3>
+                    </div>
+                    <div class="m-5">
+                        <h4>Personal information</h4>
                     </div>
                     <div class="input-group m-5">
                         <span class="input-group-text"><label for="name">Name</label></span>
@@ -73,27 +77,49 @@ try {
                         <span class="input-group-text"><label for="password2">Confirmed Password</label></span>
                         <input type="password" id="password2" class="form-control" name="password2" required>
                     </div>
-                    <div class="m-5">
-                        <select name="type" class="form-select" required>
-                            <option selected disabled>Type</option>
-                            <option value="student">Student</option>
-                            <option value="staff">Staff</option>
-                        </select>
-                    </div>
                     <div class="input-group m-5">
                         <label class="input-group-text" for="photo">Upload Photo</label>
                         <input type="file" class="form-control" id="photo" name="photo">
                     </div>
                     <div class="m-5">
+                        <h4>Kiosk Details</h4>
+                    </div>
+                    <div class="input-group m-5">
+                        <label class="input-group-text" for="kiosk_name">Kiosk Name</label>
+                        <input type="text" class="form-control" id="kiosk_name" name="kiosk_name">
+                    </div>
+                    <div class="input-group m-5">
+                        <label class="input-group-text" for="kiosk_description">Kiosk Description</label>
+                        <textarea class="form-control" name="kiosk_description" id="kiosk_description" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="m-5">
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </div>
-                </div>
-                <div class="col">
-                    <img src="../image/system_logo.jpg" alt="System Logo" class="img-fluid" id="qrcode">
                 </div>
             </div>
         </form>
     </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    
 </body>
 
 </html>

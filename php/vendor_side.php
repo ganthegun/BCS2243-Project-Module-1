@@ -22,11 +22,11 @@
         <img src="../image/system_logo.jpg" alt="Sidebar Image">
         <a href="user_dashboard.php">Dashboard</a>
         <div class="dropdown">
-            <button class="dropbtn">User Profile</button>
+            <button class="dropbtn">Vendor Profile</button>
             <div class="dropdown-content">
-                <a href="user_view_profile.php">View Profile</a>
-                <a href="user_update_profile.php">Update Profile</a>
-                <a href="user_delete_profile.php">Delete Profile</a>
+                <a href="vendor_view_profile.php">View Profile</a>
+                <a href="vendor_update_profile.php">Update Profile</a>
+                <a href="vendor_delete_profile.php">Delete Profile</a>
             </div>
         </div>
         <a href="logout.php">Log Out</a>

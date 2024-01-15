@@ -2,6 +2,7 @@
 try {
     require "admin_side.php";
     session_start();
+    
 } catch (\Throwable $th) {
     //throw $th;
 }
@@ -21,7 +22,11 @@ try {
             <div class="container">
                 <div class="row">
                     <div class="col-auto">
-
+                    <table>
+                        <thead>
+                            <th></th>
+                        </thead>
+                    </table>
                     </div>
                 </div>
             </div>
