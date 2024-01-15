@@ -1,0 +1,67 @@
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    padding-top: 20px;
+    color: #fff;
+}
+
+.sidenav img {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.sidenav a, .sidenav form button {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.sidenav a:hover, .sidenav form button {
+    color: #f1f1f1;
+}
+
+.dropdown {
+    margin-top: 10px;
+}
+
+.dropdown button {
+    font-size: 18px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    color: #818181;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+
+
