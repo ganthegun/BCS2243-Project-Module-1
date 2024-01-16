@@ -28,3 +28,49 @@ if (isset($_POST['view2'])) {
     echo json_encode($result);
     die;
 }
+
+if (isset($_POST['chart1'])) {
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM administrator");
+    $stmt->execute();
+    $result1 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM foodvendor");
+    $stmt->execute();
+    $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM registereduser");
+    $stmt->execute();
+    $result3 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM generaluser");
+    $stmt->execute();
+    $result4 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $array1 = array((int)$result1['COUNT(*)'], (int)$result2['COUNT(*)'], (int)$result3['COUNT(*)'], (int)$result4['COUNT(*)']);
+    echo json_encode([
+        "yaxis" => $array1
+    ]);
+    die;
+}
+
+
+
+if (isset($_POST['post3'])) {
+    $stmt = $conn->prepare("SELECT * FROM registereduser JOIN generaluser ON generaluser.id = registereduser.user_id");
+    $stmt->execute();
+    $result3 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($result3);
+    die;
+}
+
+if (isset($_POST['posting'])) {
+    $stmt = $conn->prepare("SELECT * FROM foodvendor");
+    $stmt->execute();
+    $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($result2);
+    die;
+}
+
+
