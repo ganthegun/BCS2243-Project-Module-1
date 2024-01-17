@@ -74,3 +74,10 @@ if (isset($_POST['posting'])) {
 }
 
 
+if (isset($_POST['postses'])) {
+    $stmt = $conn->prepare("SELECT COUNT(*) As number, administrator.name AS name FROM foodvendor JOIN administrator ON foodvendor.admin_id = administrator.id GROUP BY admin_id");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($result);
+    die;
+}

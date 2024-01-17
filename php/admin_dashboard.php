@@ -116,14 +116,15 @@ try {
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-header h4">Overall User <Summary></Summary></div>
+                            <div class="card-header h4">Admin Approval<Summary></Summary>
+                            </div>
                             <div class="card-body">
-                                <div id="chart_pie1"></div>
+                                <div id="barg"></div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
 
                 <div class="row">
@@ -237,6 +238,43 @@ try {
             }
 
             new DataTable('#hello')
+        }, 'json')
+
+        $.post('api.php', {
+            postses: 1
+        }, function(res) {
+            console.log(res);
+            array1 = [];
+            array2 = [];
+            for (var i = 0; i < res.length; i++) {
+                array1.push(res[i]['name']);
+                array2.push(parseInt(res[i]['number']));
+            }
+            var options = {
+                series: [{
+                    data: array2
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: array1,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#barg"), options);
+            chart.render();
+
         }, 'json')
     </script>
 </body>
