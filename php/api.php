@@ -53,13 +53,18 @@ if (isset($_POST['chart1'])) {
     die;
 }
 
-
+if (isset($_POST['chart2'])) {
+    $stmt = $conn->prepare("SELECT COUNT(*) As number, administrator.name AS name FROM foodvendor JOIN administrator ON foodvendor.admin_id = administrator.id GROUP BY admin_id");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($result);
+    die;
+}
 
 if (isset($_POST['post3'])) {
     $stmt = $conn->prepare("SELECT * FROM registereduser JOIN generaluser ON generaluser.id = registereduser.user_id");
     $stmt->execute();
     $result3 = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     echo json_encode($result3);
     die;
 }
@@ -68,16 +73,8 @@ if (isset($_POST['posting'])) {
     $stmt = $conn->prepare("SELECT * FROM foodvendor");
     $stmt->execute();
     $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     echo json_encode($result2);
     die;
 }
 
 
-if (isset($_POST['postses'])) {
-    $stmt = $conn->prepare("SELECT COUNT(*) As number, administrator.name AS name FROM foodvendor JOIN administrator ON foodvendor.admin_id = administrator.id GROUP BY admin_id");
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($result);
-    die;
-}

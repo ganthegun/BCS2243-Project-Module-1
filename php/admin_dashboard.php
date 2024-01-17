@@ -28,10 +28,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -43,10 +39,6 @@ try {
 
     <!-- Apex Chart -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -54,7 +46,6 @@ try {
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
             <div class="container">
-
                 <div class="row mb-3">
                     <div class="col-lg-3">
                         <div class="card bg-danger bg-gradient mb-2 bg-opacity-75">
@@ -105,34 +96,30 @@ try {
                         </div>
                     </div>
                 </div>
-
                 <div class="row my-5">
                     <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-header h4">Overall User <Summary></Summary>
-                            </div>
+                            <div class="card-header h4">Overall User</div>
                             <div class="card-body">
-                                <div id="chart_pie1"></div>
+                                <div id="chart1"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-header h4">Admin Approval<Summary></Summary>
-                            </div>
+                            <div class="card-header h4">Admin Approval</div>
                             <div class="card-body">
-                                <div id="barg"></div>
+                                <div id="chart2"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header h4 bg-info">List of Users</div>
                             <div class="card-body">
-                                <table id="stf_dt" class="table table-striped">
+                                <table id="table1" class="table table-striped">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">ID</th>
@@ -143,21 +130,18 @@ try {
                                             <th scope="col">Password</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header h4 bg-info">List of Vendor</div>
                             <div class="card-body">
-                                <table id="hello" class="table table-striped">
+                                <table id="table2" class="table table-striped">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">ID</th>
@@ -168,15 +152,12 @@ try {
                                             <th scope="col">Password</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -194,54 +175,12 @@ try {
                 }
             };
 
-            var chart = new ApexCharts(document.querySelector("#chart_pie1"), options);
+            var chart = new ApexCharts(document.querySelector("#chart1"), options);
             chart.render();
         }, 'json');
 
-
-
         $.post('api.php', {
-            post3: 1
-        }, function(res) {
-            console.log(res)
-            for (var i = 0; i < res.length; i++) {
-                $('#stf_dt tbody').append(`
-                <tr>
-                    <td>${res[i].id}</td>
-                    <td>${res[i].name}</td>
-                    <td>${res[i].phoneNum}</td>
-                    <td>${res[i].email}</td>
-                    <td>${res[i].username}</td>
-                    <td>${res[i].password}</td>
-                </tr>
-            `)
-            }
-
-            new DataTable('#stf_dt')
-        }, 'json')
-
-        $.post('api.php', {
-            posting: 1
-        }, function(res) {
-            console.log(res)
-            for (var i = 0; i < res.length; i++) {
-                $('#hello tbody').append(`
-                <tr>
-                    <td>${res[i].id}</td>
-                    <td>${res[i].name}</td>
-                    <td>${res[i].phoneNum}</td>
-                    <td>${res[i].email}</td>
-                    <td>${res[i].username}</td>
-                    <td>${res[i].password}</td>
-                </tr>
-            `)
-            }
-
-            new DataTable('#hello')
-        }, 'json')
-
-        $.post('api.php', {
-            postses: 1
+            chart2: 1
         }, function(res) {
             console.log(res);
             array1 = [];
@@ -272,9 +211,49 @@ try {
                 }
             };
 
-            var chart = new ApexCharts(document.querySelector("#barg"), options);
+            var chart = new ApexCharts(document.querySelector("#chart2"), options);
             chart.render();
 
+        }, 'json')
+
+        $.post('api.php', {
+            post3: 1
+        }, function(res) {
+            console.log(res)
+            for (var i = 0; i < res.length; i++) {
+                $('#table1 tbody').append(`
+                <tr>
+                    <td>${res[i].id}</td>
+                    <td>${res[i].name}</td>
+                    <td>${res[i].phoneNum}</td>
+                    <td>${res[i].email}</td>
+                    <td>${res[i].username}</td>
+                    <td>${res[i].password}</td>
+                </tr>
+            `)
+            }
+
+            new DataTable('#table1')
+        }, 'json')
+
+        $.post('api.php', {
+            posting: 1
+        }, function(res) {
+            console.log(res)
+            for (var i = 0; i < res.length; i++) {
+                $('#table2 tbody').append(`
+                <tr>
+                    <td>${res[i].id}</td>
+                    <td>${res[i].name}</td>
+                    <td>${res[i].phoneNum}</td>
+                    <td>${res[i].email}</td>
+                    <td>${res[i].username}</td>
+                    <td>${res[i].password}</td>
+                </tr>
+            `)
+            }
+
+            new DataTable('#table2')
         }, 'json')
     </script>
 </body>

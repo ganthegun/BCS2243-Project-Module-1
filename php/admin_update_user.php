@@ -20,7 +20,7 @@ try {
                 <div class="container">
                     <div class=" row justify-content-center m-5">
                         <div class="col-auto">
-                            <h3>Vendor Approval</h3>
+                            <h3>List of User</h3>
                         </div>
                     </div>
                     <table class="table table-striped table-hover m-5" id="stf_dt">
