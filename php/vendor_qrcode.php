@@ -32,7 +32,7 @@ if (!isset($_SESSION['id'])) {
         </div>
         <div class="row justify-content-center">
             <div class="col-auto">
-                <a href="logout.php" class="btn btn-primary">to main page</a>
+                <a href="logout.php" class="btn btn-primary">to login page</a>
             </div>
         </div>
     </div>

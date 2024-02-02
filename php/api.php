@@ -34,7 +34,7 @@ if (isset($_POST['chart1'])) {
     $stmt->execute();
     $result1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM foodvendor");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM foodvendor WHERE approval = 'approved'");
     $stmt->execute();
     $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -42,7 +42,7 @@ if (isset($_POST['chart1'])) {
     $stmt->execute();
     $result3 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM generaluser");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM generaluser WHERE id NOT IN (SELECT user_id FROM registereduser)");
     $stmt->execute();
     $result4 = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -54,7 +54,7 @@ if (isset($_POST['chart1'])) {
 }
 
 if (isset($_POST['chart2'])) {
-    $stmt = $conn->prepare("SELECT COUNT(*) As number, administrator.name AS name FROM foodvendor JOIN administrator ON foodvendor.admin_id = administrator.id GROUP BY admin_id");
+    $stmt = $conn->prepare("SELECT COUNT(*) As number, administrator.name AS name FROM foodvendor JOIN administrator ON foodvendor.admin_id = administrator.id WHERE approval = 'approved' GROUP BY admin_id");
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($result);
@@ -70,7 +70,7 @@ if (isset($_POST['post3'])) {
 }
 
 if (isset($_POST['posting'])) {
-    $stmt = $conn->prepare("SELECT * FROM foodvendor");
+    $stmt = $conn->prepare("SELECT * FROM foodvendor WHERE approval = 'approved'");
     $stmt->execute();
     $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($result2);

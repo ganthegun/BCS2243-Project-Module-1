@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2023 at 11:17 PM
+-- Generation Time: Jan 31, 2024 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,15 @@ CREATE TABLE `administrator` (
   `photo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `administrator`
+--
+
+INSERT INTO `administrator` (`id`, `name`, `phoneNum`, `email`, `username`, `password`, `photo`) VALUES
+(1, 'Aiman Abdullah', '012-5876350', 'aiman.abdullah@email.com', 'aiman', 'aiman', 'aiman.jpg'),
+(2, 'Chee Chong Fun', '017-9635842', 'chee.chong.fun@email.com', 'chee', 'chee', 'chee.jpg'),
+(3, 'Kamarul Naidu', '013-5789254', 'kamarul.naidu@email.com', 'kamarul', 'kamarul', 'kamarul.jpeg');
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +64,15 @@ CREATE TABLE `foodvendor` (
   `approval` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `foodvendor`
+--
+
+INSERT INTO `foodvendor` (`id`, `admin_id`, `name`, `phoneNum`, `email`, `username`, `password`, `photo`, `approval`) VALUES
+(1, 2, 'Delicious Bites', '018-8257741', 'bites@email.com', 'bites_vendor', 'bites_vendor', 'delicious_bites.png', 'approved'),
+(2, 3, 'Tasty Treats', '014-5858236', 'treats@email.com', 'treats_vendor', 'treats_vendor', 'tasty_treats.png', 'approved'),
+(3, 1, 'Savory Delights', '011-5555482', 'savory@email.com', 'savory_vendor', 'savory_vendor', 'savoury_delights.png', 'approved');
+
 -- --------------------------------------------------------
 
 --
@@ -67,6 +85,19 @@ CREATE TABLE `generaluser` (
   `phoneNum` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `generaluser`
+--
+
+INSERT INTO `generaluser` (`id`, `name`, `phoneNum`, `email`) VALUES
+(1, 'Ahmad Ali', '012-3456789', 'ahmad.ali@email.com'),
+(2, 'Nurul Hassan', '019-9887766', 'nurul.hassan@email.com'),
+(3, 'Aizam', '011-4343567', 'aizam@gmail.com'),
+(4, 'Aishah Anuar', '011-1223344', 'aishah.anuar@email.com'),
+(5, 'Rebecca Tan', '015-8799981', 'rebecca.tan@email.com'),
+(6, 'Kumar Rao', '014-8523574', 'kumar.rao@email.com'),
+(7, 'Haidar', '015-4545234', 'hai@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -90,11 +121,21 @@ CREATE TABLE `kiosk` (
   `id` int(10) UNSIGNED NOT NULL,
   `vendor_id` int(10) UNSIGNED DEFAULT NULL,
   `name` varchar(100) NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `businessHour` varchar(255) NOT NULL,
-  `businessDay` varchar(255) NOT NULL,
-  `operationStatus` varchar(50) NOT NULL
+  `description` varchar(255) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `businessHour` varchar(255) DEFAULT NULL,
+  `businessDay` varchar(255) DEFAULT NULL,
+  `operationStatus` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `kiosk`
+--
+
+INSERT INTO `kiosk` (`id`, `vendor_id`, `name`, `description`, `location`, `businessHour`, `businessDay`, `operationStatus`) VALUES
+(1, 1, 'Quick Bites', 'Your best snacking place', '', NULL, NULL, NULL),
+(2, 2, 'Sweet Spot', 'Greatest confectionaries in town', '', NULL, NULL, NULL),
+(3, 3, 'Flavor Haven', 'Spice is the utmost essence in cooking', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -197,6 +238,15 @@ CREATE TABLE `registereduser` (
   `type` varchar(20) NOT NULL,
   `photo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `registereduser`
+--
+
+INSERT INTO `registereduser` (`id`, `user_id`, `username`, `password`, `type`, `photo`) VALUES
+(1, 1, 'Ali', 'Ali', 'student', 'ali.jpg'),
+(2, 2, 'Nurul', 'Nurul', 'student', 'nurul.jpeg'),
+(3, 3, 'CB22001', 'CB22001', 'staff', 'cb22001.jpg');
 
 --
 -- Indexes for dumped tables
@@ -302,19 +352,19 @@ ALTER TABLE `registereduser`
 -- AUTO_INCREMENT for table `administrator`
 --
 ALTER TABLE `administrator`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `foodvendor`
 --
 ALTER TABLE `foodvendor`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `generaluser`
 --
 ALTER TABLE `generaluser`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `inkioskpurchase`
@@ -326,7 +376,7 @@ ALTER TABLE `inkioskpurchase`
 -- AUTO_INCREMENT for table `kiosk`
 --
 ALTER TABLE `kiosk`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `membership`
@@ -356,7 +406,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `registereduser`
 --
 ALTER TABLE `registereduser`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

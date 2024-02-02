@@ -19,6 +19,7 @@ try {
             $sql = "UPDATE administrator SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password' WHERE id = '$id'";
             $conn->exec($sql);
         }
+        header("location: admin_view_profile.php");
     }
 } catch (PDOException $e) {
     echo $e->getMessage();

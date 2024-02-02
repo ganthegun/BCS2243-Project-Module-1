@@ -20,6 +20,7 @@ try {
             $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type' WHERE user_id = '$id'";
             $conn->exec($sql);
         }
+        header("location: user_view_profile.php");
     }
 } catch (PDOException $e) {
     echo $e->getMessage();
@@ -87,7 +88,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             <div class="my-5">
                                 <select name="type" class="form-select" required>
                                     <option <?php echo ($row['type'] == "student") ? "selected" : "" ?> value="student">Student</option>
-                                    <option <?php echo ($row['type'] == "student") ? "selected" : "" ?> value="staff">Staff</option>
+                                    <option <?php echo ($row['type'] == "staff") ? "selected" : "" ?> value="staff">Staff</option>
                                 </select>
                             </div>
                         </div>

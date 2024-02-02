@@ -11,19 +11,18 @@ try {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $type = $_POST['type'];
         $photo = basename($_FILES["photo"]["name"]);
         $targetPhotoPath = "../uploads/" . $photo;
         $photoType = pathinfo($targetPhotoPath, PATHINFO_EXTENSION);
         $allowTypes = array('jpg', 'png', 'jpeg');
         if (in_array($photoType, $allowTypes) && move_uploaded_file($_FILES["photo"]["tmp_name"], $targetPhotoPath)) {
-            $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type', photo = '$photo' WHERE user_id = '$id'";
+            $sql = "UPDATE foodvendor SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', photo = '$photo' WHERE id = '$id'";
             $conn->exec($sql);
         } else {
-            $sql = "UPDATE generaluser JOIN registereduser ON generaluser.id = registereduser.user_id SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password', type = '$type' WHERE user_id = '$id'";
+            $sql = "UPDATE foodvendor SET name = '$name', phoneNum = '$phoneNum', email = '$email', username = '$username', password = '$password' WHERE id = '$id'";
             $conn->exec($sql);
         }
-        header("location: admin_update_user.php");
+        header("location: admin_update_vendor.php");
     }
 } catch (PDOException $e) {
     echo $e->getMessage();

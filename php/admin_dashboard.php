@@ -6,7 +6,7 @@ try {
     $stmt->execute();
     $result1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM foodvendor");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM foodvendor WHERE approval = 'approved'");
     $stmt->execute();
     $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -14,7 +14,7 @@ try {
     $stmt->execute();
     $result3 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM generaluser");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM generaluser WHERE id NOT IN (SELECT user_id FROM registereduser)");
     $stmt->execute();
     $result4 = $stmt->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
